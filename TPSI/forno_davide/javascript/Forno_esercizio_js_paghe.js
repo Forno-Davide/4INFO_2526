@@ -9,13 +9,19 @@ function salva() {
 
     if (cognome.value !== "" && nome.value !== "" && mese.value !== "" && importo.value !== "" && dipartimento.value !== "") {
         const tr = document.createElement("tr");
-        tr.innerHTML = `
-            <td>${dipartimento.value}</td>
-            <td>${cognome.value}</td>
-            <td>${nome.value}</td>
-            <td>${mese.value}</td>
-            <td class="importo">${parseFloat(importo.value)}</td>
-        `;
+        tr.innerText = "";
+        const tdCognome = document.createElement("td");
+        tdCognome.innerText = cognome.value;
+        const tdNome = document.createElement("td");
+        tdNome.innerText = nome.value;
+        const tdMese = document.createElement("td");
+        tdMese.innerText = mese.value;
+        const tdDipartimento = document.createElement("td");
+        tdDipartimento.innerText = dipartimento.value;
+        const tdImporto = document.createElement("td");
+        tdImporto.innerText = importo.value + " €";
+        tdImporto.classList.add("importo");
+        tr.append(tdDipartimento, tdCognome, tdNome, tdMese, tdImporto);
         tabella.append(tr);
 
         cognome.value = "";
@@ -44,10 +50,13 @@ function totale() {
     if (!rigaTotale) {
         rigaTotale = document.createElement("tr");
         rigaTotale.id = "rigaTotale";
-        rigaTotale.innerHTML = `
-            <td colspan="4">TOTALE</td>
-            <td class="importo">${somma} €</td>
-        `;
+        const tdTotaleLabel = document.createElement("td");
+        tdTotaleLabel.colSpan = 4;
+        tdTotaleLabel.innerText = "TOTALE";
+        const tdTotaleImporto = document.createElement("td");
+        tdTotaleImporto.classList.add("importo");
+        tdTotaleImporto.innerText = somma + " €";
+        rigaTotale.append(tdTotaleLabel, tdTotaleImporto);
         tabella.append(rigaTotale);
     } else {
         rigaTotale.querySelector(".importo").innerText = somma + " €";
